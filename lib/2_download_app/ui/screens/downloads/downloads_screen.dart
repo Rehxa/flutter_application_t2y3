@@ -3,8 +3,8 @@ import '../../providers/theme_color_provider.dart';
 import '../../theme/theme.dart';
 import 'widgets/download_controler.dart';
 
-
 class DownloadsScreen extends StatelessWidget {
+  final ChangeTheme themeChanges;
   // Create the list of fake ressources
   final List<Ressource> ressources = [
     Ressource(name: "image1.png", size: 120),
@@ -14,7 +14,7 @@ class DownloadsScreen extends StatelessWidget {
 
   final List<DownloadController> controllers = [];
 
-  DownloadsScreen({super.key}) {
+  DownloadsScreen({super.key, required this.themeChanges}) {
     // Create a controllers for each ressource
     for (Ressource ressource in ressources) {
       controllers.add(DownloadController(ressource));
@@ -24,7 +24,7 @@ class DownloadsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: currentThemeColor.backgroundColor,
+      color: themeChanges.currentTheme.backgroundColor,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -32,7 +32,7 @@ class DownloadsScreen extends StatelessWidget {
           Text(
             "Downloads",
             style: AppTextStyles.heading.copyWith(
-              color: currentThemeColor.color,
+              color: themeChanges.currentTheme.color,
             ),
           ),
 
