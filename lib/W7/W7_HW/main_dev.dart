@@ -1,6 +1,8 @@
+import 'package:flutter_application_t2y3/W7/W7_HW/data/repositories/user_history/user_history_mock.dart';
+import 'package:flutter_application_t2y3/W7/W7_HW/data/repositories/user_history/user_history_repository.dart';
 import 'package:provider/provider.dart';
 import 'package:nested/nested.dart';
- 
+
 import 'main_common.dart';
 import 'data/repositories/settings/app_settings_repository_mock.dart';
 import 'data/repositories/songs/song_repository.dart';
@@ -21,8 +23,10 @@ List<SingleChildWidget> get devProviders {
 
     // 3 - Inject the  app setting state
     ChangeNotifierProvider<AppSettingsState>(
-      create: (_) =>AppSettingsState(repository: appSettingsRepository)
+      create: (_) => AppSettingsState(repository: appSettingsRepository),
     ),
+
+    Provider<UserHistoryRepository>(create: (_) => UserHistoryMock()),
   ];
 }
 

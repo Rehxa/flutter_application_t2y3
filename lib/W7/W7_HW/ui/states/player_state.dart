@@ -8,9 +8,12 @@ class PlayerState extends ChangeNotifier {
   Song? get currentSong => _currentSong;
 
   void start(Song song) {
-    _currentSong = song;
-
-    notifyListeners();
+    if (_currentSong == song) {
+      stop();
+    } else {
+      _currentSong = song;
+      notifyListeners();
+    }
   }
 
   void stop() {
