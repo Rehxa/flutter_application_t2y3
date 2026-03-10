@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_t2y3/W8/model/songs/song.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:provider/provider.dart';
 import '../../../theme/theme.dart';
 import '../../../widgets/song/song_tile.dart';
@@ -11,6 +13,29 @@ class LibraryContent extends StatelessWidget {
   Widget build(BuildContext context) {
     // 1- Read the globbal song repository
     LibraryViewModel mv = context.watch<LibraryViewModel>();
+    AsyncValue<List<Song>> asyncSong = mv.songValue;
+
+    Widget content = asyncSong.when(
+      loading: () => Center(child: CircularProgressIndicator()),
+      error: (error, stackTrace) => Center(
+        child: Text(
+          error.toString(),
+          style: TextStyle(fontSize: 20, color: Colors.red),
+        ),
+      ),
+      data: (data) => Expanded(
+        child: ListView.builder(
+          itemCount: mv.songs.length,
+          itemBuilder: (context, index) => SongTile(
+            song: mv.songs[index],
+            isPlaying: mv.isSongPlaying(mv.songs[index]),
+            onTap: () {
+              mv.start(mv.songs[index]);
+            },
+          ),
+        ),
+      ),
+    );
 
     return Padding(
       padding: const EdgeInsets.all(20.0),
@@ -20,19 +45,7 @@ class LibraryContent extends StatelessWidget {
           SizedBox(height: 16),
           Text("Library", style: AppTextStyles.heading),
           SizedBox(height: 50),
-      
-          Expanded(
-            child: ListView.builder(
-              itemCount: mv.songs.length,
-              itemBuilder: (context, index) => SongTile(
-                song: mv.songs[index],
-                isPlaying: mv.isSongPlaying(mv.songs[index]) ,
-                onTap: () {
-                  mv.start(mv.songs[index]);
-                },
-              ),
-            ),
-          ),
+          content,
         ],
       ),
     );

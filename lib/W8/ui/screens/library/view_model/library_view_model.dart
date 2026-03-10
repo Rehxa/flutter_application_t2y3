@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../data/repositories/songs/song_repository.dart';
 import '../../../states/player_state.dart';
 import '../../../../model/songs/song.dart';
@@ -23,10 +24,17 @@ class LibraryViewModel extends ChangeNotifier {
     super.dispose();
   }
 
-  void _init() async {
+  AsyncValue<List<Song>> songValue = const AsyncValue.loading();
+  Future<void> _init() async {
+    songValue = AsyncValue.loading();
+    notifyListeners();
     // 1 - Fetch songs
-    _songs = await songRepository.fetchSongs();
-
+    try {
+      _songs = await songRepository.fetchSongs();
+      songValue = AsyncValue.data(_songs!);
+    } catch (err, stack) {
+      songValue = AsyncValue.error(err, stack);
+    }
     // 2 - notify listeners
     notifyListeners();
   }
