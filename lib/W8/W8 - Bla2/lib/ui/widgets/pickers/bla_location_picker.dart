@@ -49,12 +49,13 @@ class _BlaLocationPickerState extends State<BlaLocationPicker> {
   }
 
   List<Location> get filteredLocation {
+    List<Location> allAvailableLocations = context
+        .read<LocationRepository>()
+        .availableLocations;
     if (currentSearchText.length < 2) {
       return [];
     }
-    return context
-        .read<LocationRepository>()
-        .availableLocations
+    return allAvailableLocations
         .where(
           (location) => location.name.toUpperCase().contains(
             currentSearchText.toUpperCase(),
