@@ -1,12 +1,9 @@
 import 'package:blabla/data/repositories/ride/ride_repository.dart';
-import 'package:blabla/data/repositories/ride_preference/ride_preference_repository.dart';
 import 'package:blabla/ui/state/ride_preference_state.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../model/ride/ride.dart';
 import '../../../model/ride_pref/ride_pref.dart';
-import '../../../services/ride_prefs_service.dart';
-import '../../../services/rides_service.dart';
 import '../../../utils/animations_util.dart' show AnimationUtils;
 import '../../theme/theme.dart';
 import 'widgets/ride_preference_modal.dart';
