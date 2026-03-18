@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_t2y3/W8/model/songs/song.dart';
+import 'package:flutter_application_t2y3/W8/W8-HW1/model/songs/song.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:provider/provider.dart';
 import '../../../theme/theme.dart';

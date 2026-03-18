@@ -1,6 +1,6 @@
-import 'package:flutter_application_t2y3/W8/data/repositories/songs/song_repository.dart';
-import 'package:flutter_application_t2y3/W8/data/repositories/songs/song_repository_mock.dart';
-import 'package:flutter_application_t2y3/W8/model/songs/song.dart';
+import 'package:flutter_application_t2y3/W8/W8-HW1/data/repositories/songs/song_repository.dart';
+import 'package:flutter_application_t2y3/W8/W8-HW1/data/repositories/songs/song_repository_mock.dart';
+import 'package:flutter_application_t2y3/W8/W8-HW1/model/songs/song.dart';
 
 void main() async {
   //   Instantiate the  song_repository_mock
