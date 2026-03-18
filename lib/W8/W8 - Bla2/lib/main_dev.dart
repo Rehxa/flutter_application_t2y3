@@ -17,8 +17,8 @@ List<InheritedProvider> get devProviders {
       create: (_) => RidePreferenceRepositoryMock(),
     ),
     ChangeNotifierProvider<RidePreferenceState>(
-      create: (_) => RidePreferenceState(
-        ridePreferenceRepository: RidePreferenceRepositoryMock(),
+      create: (context) => RidePreferenceState(
+        ridePreferenceRepository: context.read<RidePreferenceRepository>(),
       ),
     ),
   ];
