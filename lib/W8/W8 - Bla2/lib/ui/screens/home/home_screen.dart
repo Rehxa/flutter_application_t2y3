@@ -9,11 +9,14 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<HomeViewModel>(
-      create: (_) => HomeViewModel(
+    return ChangeNotifierProvider(
+      create: (context) => HomeViewModel(
         ridePreferenceState: context.read<RidePreferenceState>(),
       ),
-      child: HomeContent(),
+      child: Consumer<HomeViewModel>(
+        builder: (context, viewModel, _) =>
+            HomeContent(homeViewModel: viewModel),
+      ),
     );
   }
 }

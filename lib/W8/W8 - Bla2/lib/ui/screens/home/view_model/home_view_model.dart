@@ -16,7 +16,7 @@ class HomeViewModel extends ChangeNotifier {
   @override
   void dispose() {
     super.dispose();
-    ridePreferenceState.dispose();
+    ridePreferenceState.removeListener(handleRidePrefChanges);
   }
 
   void selectPreference(RidePreference preference) {
