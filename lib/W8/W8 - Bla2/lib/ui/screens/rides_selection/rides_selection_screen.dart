@@ -1,5 +1,6 @@
 import 'package:blabla/data/repositories/ride/ride_repository.dart';
 import 'package:blabla/data/repositories/ride_preference/ride_preference_repository.dart';
+import 'package:blabla/ui/state/ride_preference_state.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../model/ride/ride.dart';
@@ -39,7 +40,7 @@ class _RidesSelectionScreenState extends State<RidesSelectionScreen> {
   }
 
   RidePreference get selectedRidePreference =>
-      context.read<RidePreferenceRepository>().selectedPreference!;
+      context.read<RidePreferenceState>().selectedPreference!;
 
   List<Ride> get matchingRides =>
       context.read<RideRepository>().getRidesFor(selectedRidePreference);
@@ -55,7 +56,7 @@ class _RidesSelectionScreenState extends State<RidesSelectionScreen> {
 
     if (newPreference != null) {
       // 2 - Ask the service to update the current preference
-      context.read<RidePreferenceRepository>().selectPreference(newPreference);
+      context.read<RidePreferenceState>().selectPreference(newPreference);
 
       // 3 -   Update the widget state  - TODO Improve this with proper state managagement
       setState(() {});

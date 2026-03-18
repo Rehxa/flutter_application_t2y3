@@ -1,9 +1,10 @@
+import 'package:blabla/data/dummy_data.dart';
 import 'package:blabla/data/repositories/ride_preference/ride_preference_repository.dart';
 import 'package:blabla/model/ride_pref/ride_pref.dart';
 
 class RidePreferenceRepositoryMock implements RidePreferenceRepository {
   RidePreference? _selectedPreference;
-  final List<RidePreference> _preferenceHistory = [];
+  final List<RidePreference> _preferenceHistory = fakeRidePrefs;
 
   @override
   List<RidePreference> get preferenceHistory => _preferenceHistory;

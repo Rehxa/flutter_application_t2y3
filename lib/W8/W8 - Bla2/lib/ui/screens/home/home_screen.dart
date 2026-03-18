@@ -1,6 +1,7 @@
 import 'package:blabla/data/repositories/ride_preference/ride_preference_repository.dart';
 import 'package:blabla/model/ride_pref/ride_pref.dart';
 import 'package:blabla/services/ride_prefs_service.dart';
+import 'package:blabla/ui/state/ride_preference_state.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../utils/animations_util.dart';
@@ -26,9 +27,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   void onRidePrefSelected(RidePreference selectedPreference) async {
     // 1- Ask the service to update the current preference
-    context.read<RidePreferenceRepository>().selectPreference(
-      selectedPreference,
-    );
+    context.read<RidePreferenceState>().selectPreference(selectedPreference);
 
     // 2 - Navigate to the rides screen
     await Navigator.of(
@@ -71,7 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
               // 2 - THE FORM
               BlaRidePreferencePicker(
                 initRidePreference: context
-                    .read<RidePreferenceRepository>()
+                    .watch<RidePreferenceState>()
                     .selectedPreference,
                 onRidePreferenceSelected: onRidePrefSelected,
               ),
@@ -89,7 +88,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget _buildHistory() {
     // Reverse the history of preferences
     List<RidePreference> history = context
-        .read<RidePreferenceRepository>()
+        .watch<RidePreferenceState>()
         .preferenceHistory
         .reversed
         .toList();
