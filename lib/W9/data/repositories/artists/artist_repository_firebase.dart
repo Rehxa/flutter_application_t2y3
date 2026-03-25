@@ -15,8 +15,17 @@ class ArtistRepositoryFirebase implements ArtistRepository {
     final http.Response response = await http.get(artistUrl);
 
     if (response.statusCode == 200) {
-      Map<String, dynamic> songJson = json.decode(response.body);
-      return songJson.values.map((item) => ArtistDto.fromJson(item)).toList();
+      final List<Artist> artists = [];
+      Map<String, dynamic> artistJson = json.decode(response.body);
+      for (var entry in artistJson.entries) {
+        final String id = entry.key;
+        final Map<String, dynamic> jsonMap = Map<String, dynamic>.from(
+          entry.value,
+        );
+        final Artist artist = ArtistDto.fromJson(id, jsonMap);
+        artists.add(artist);
+      }
+      return artists;
     } else {
       throw Exception('Failed to load posts');
     }

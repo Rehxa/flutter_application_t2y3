@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_t2y3/W9/service/music_service.dart';
 import 'package:provider/provider.dart';
 import 'view_model/library_view_model.dart';
 import '../../../data/repositories/songs/song_repository.dart';
@@ -13,7 +14,7 @@ class LibraryScreen extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => LibraryViewModel(
         playerState: context.read<PlayerState>(),
-        songRepository: context.read<SongRepository>(),
+        musicService: context.read<MusicService>(),
       ),
       child: LibraryContent(),
     );

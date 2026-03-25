@@ -7,12 +7,13 @@ class ArtistDto {
   static const String nameKey = 'name';
   static const String imageUrlKey = "imageUrl";
 
-  static Artist fromJson(Map<String, dynamic> json) {
+  static Artist fromJson(String id, Map<String, dynamic> json) {
     assert(json[genreKey] is String);
     assert(json[imageUrlKey] is String);
     assert(json[nameKey] is String);
 
     return Artist(
+      id: id,
       genre: json[genreKey],
       imageUrl: Uri.parse(json[imageUrlKey]),
       name: json[nameKey],
