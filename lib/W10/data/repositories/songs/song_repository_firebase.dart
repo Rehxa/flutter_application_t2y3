@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter_application_t2y3/W10/util/firebase_api.dart';
 import 'package:http/http.dart' as http;
 
 import '../../../model/songs/song.dart';
@@ -7,10 +8,7 @@ import '../../dtos/song_dto.dart';
 import 'song_repository.dart';
 
 class SongRepositoryFirebase extends SongRepository {
-  final Uri songsUri = Uri.https(
-    'test-a2a77-default-rtdb.asia-southeast1.firebasedatabase.app',
-    '/songs.json',
-  );
+  final Uri songsUri = Uri.https(FirebaseApi.firebasedatabase, '/songs.json');
 
   @override
   Future<List<Song>> fetchSongs() async {
@@ -33,4 +31,23 @@ class SongRepositoryFirebase extends SongRepository {
 
   @override
   Future<Song?> fetchSongById(String id) async {}
+
+  @override
+  Future<Song?> increaseLikeSong(Song song) async {
+    final Uri url = Uri.https(
+      FirebaseApi.firebasedatabase,
+      '/songs/${song.id}.json',
+    );
+    final int newLike = song.likeAmount + 1;
+
+    final response = await http.patch(
+      url,
+      body: json.encode({SongDto.likeAmountKey: newLike}),
+    );
+
+    if (response.statusCode == 200) {
+      return song.copyWith(likeAmount: newLike);
+    }
+    return null;
+  }
 }
