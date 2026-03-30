@@ -16,14 +16,21 @@ class ArtistsViewModel extends ChangeNotifier {
     fetchArtists();
   }
 
-  void fetchArtists() async {
-    // 1- Loading state
-    artistsValue = AsyncValue.loading();
-    notifyListeners();
+  Future<void> refresh() async {
+    await fetchArtists(forceFetch: true);
+  }
 
+  Future<void> fetchArtists({bool forceFetch = false}) async {
+    // 1- Loading state
+    if (!artistRepository.hasCache && !forceFetch) {
+      artistsValue = AsyncValue.loading();
+      notifyListeners();
+    }
     try {
       // 2- Fetch is successfull
-      List<Artist> artists = await artistRepository.fetchArtists();
+      List<Artist> artists = await artistRepository.fetchArtists(
+        forceFetch: forceFetch,
+      );
       artistsValue = AsyncValue.success(artists);
     } catch (e) {
       // 3- Fetch is unsucessfull
